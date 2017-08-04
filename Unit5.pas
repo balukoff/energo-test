@@ -82,7 +82,7 @@ begin
   ParamByName('ProductID').DataType:=ftInteger;
   ParamByName('ProductID').Value := trim(unit2.product_id);
  end;
-  ShowMessage('manager_id = '+unit2.manager_id+' product_id = '+unit2.product_id);
+  
   result := ADOQuery2.ExecSQL;
  // ShowMessage(IntToStr(result));
   if (result = 1) then begin
