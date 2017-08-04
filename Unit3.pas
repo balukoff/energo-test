@@ -31,9 +31,11 @@ type
 var
   Form3: TForm3;
   F6: TForm6;
+  operation : string;
+  manager_id: Integer;
 
 implementation
-  uses Unit1, unit2;
+   uses Unit1, unit2;
 
 
 
@@ -54,6 +56,7 @@ end;
 procedure TForm3.btn1Click(Sender: TObject);
 begin
  F6 := TForm6.Create(Application);
+ operation := 'add';
  F6.Show();
 end;
 
@@ -92,6 +95,7 @@ begin
 procedure TForm3.btn3Click(Sender: TObject);
 begin
  F6 := TForm6.Create(Application);
+ operation := 'edit';
  F6.edt1.Text := Trim(ADOQuery1.Fields.Fields[1].AsString);
  unit2.manager_id := ADOQuery1.Fields.Fields[0].AsString;
  F6.Show();

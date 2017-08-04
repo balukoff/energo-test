@@ -4,7 +4,7 @@ object Form4: TForm4
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = #1057#1087#1088#1072#1074#1086#1095#1085#1080#1082' '#1090#1086#1074#1072#1088#1086#1074
-  ClientHeight = 315
+  ClientHeight = 336
   ClientWidth = 627
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -18,11 +18,12 @@ object Form4: TForm4
   Visible = True
   OnClose = FormClose
   OnCreate = FormCreate
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object dbgrd1: TDBGrid
     Left = 8
-    Top = 8
+    Top = 33
     Width = 609
     Height = 265
     Ctl3D = False
@@ -60,7 +61,7 @@ object Form4: TForm4
   end
   object btn1: TBitBtn
     Left = 296
-    Top = 280
+    Top = 304
     Width = 107
     Height = 25
     Caption = #1044#1086#1073#1072#1074#1080#1090#1100
@@ -69,7 +70,7 @@ object Form4: TForm4
   end
   object btn2: TBitBtn
     Left = 408
-    Top = 280
+    Top = 304
     Width = 97
     Height = 25
     Caption = #1059#1076#1072#1083#1080#1090#1100
@@ -78,21 +79,30 @@ object Form4: TForm4
   end
   object btn3: TBitBtn
     Left = 512
-    Top = 280
+    Top = 304
     Width = 105
     Height = 25
     Caption = #1056#1077#1076#1072#1082#1090#1080#1088#1086#1074#1072#1090#1100
     TabOrder = 3
+    OnClick = btn3Click
   end
   object btn4: TBitBtn
     Left = 8
-    Top = 280
+    Top = 304
     Width = 113
     Height = 25
     Caption = #1042#1099#1073#1088#1072#1090#1100
     TabOrder = 4
     Visible = False
     OnClick = btn4Click
+  end
+  object edt1: TEdit
+    Left = 8
+    Top = 8
+    Width = 609
+    Height = 21
+    TabOrder = 5
+    OnKeyPress = edt1KeyPress
   end
   object ds1: TDataSource
     DataSet = ADOQuery1

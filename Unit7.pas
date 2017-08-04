@@ -26,7 +26,7 @@ var
   Form7: TForm7;
 
 implementation
-  uses Unit1;
+  uses Unit1, unit4;
 {$R *.dfm}
 
 procedure TForm7.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -36,18 +36,31 @@ end;
 
 procedure TForm7.btn1Click(Sender: TObject);
 var result: Integer;
+var proc : string;
 begin
  ADOQuery2.ConnectionString := unit1.conn_str;
  ADOQuery2.SQL.Clear;
- ADOQuery2.SQL.Add('exec addProduct @Name = :Name, @Price = :Price');
+ if (unit4.operation = 'add') then
+  proc := 'exec addProduct @Name = :Name, @Price = :Price'
+ else
+  proc := 'exec editProduct @Name = :Name, @Price = :Price, @ProductID = :ProductID';
+
+ ADOQuery2.SQL.Add(proc);
  with ADOQuery2.Parameters do begin
-  Clear;
-  addParameter.name:='Name';
-  ParamByName('Name').DataType:=ftString;
-  ParamByName('Name').Value := Trim(edt1.Text);
-  addParameter.name:='Price';
-  ParamByName('Price').DataType:=ftFloat;
-  ParamByName('Price').Value := Trim(edt2.Text);
+   Clear;
+   addParameter.name:='Name';
+   ParamByName('Name').DataType:=ftString;
+   ParamByName('Name').Value := Trim(edt1.Text);
+   addParameter.name:='Price';
+   ParamByName('Price').DataType:=ftFloat;
+   ParamByName('Price').Value := Trim(edt2.Text);
+  if (unit4.operation = 'edit') then begin
+   addParameter.name:='ProductID';
+   ParamByName('ProductID').DataType:=ftInteger;
+   ParamByName('ProductID').Value := unit4.product_id
+  end;
+
+
  end;
  result := ADOQuery2.ExecSQL;
  if (result = 1) then begin

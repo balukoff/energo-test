@@ -65,9 +65,14 @@ end;
 procedure TForm5.btn3Click(Sender: TObject);
 var result: Integer;
 begin
+ if ((Trim(edt1.Text) = '') or (Trim(edt2.text) = '')) then
+ begin
+   ShowMessage('Ошибка ввода данных');
+   Exit;
+ end;
  ADOQuery2.ConnectionString := unit1.conn_str;
  ADOQuery2.SQL.Clear;
- ADOQuery2.SQL.Add('exec SaleInsert @ProductId = :ProductID, @ManagerId = :ManagerID');
+ ADOQuery2.SQL.Add('exec SaleInsert @ManagerId = :ManagerID, @ProductId = :ProductID');
  with ADOQuery2.Parameters do begin
   Clear;
   addParameter.name:='ManagerID';
@@ -77,9 +82,9 @@ begin
   ParamByName('ProductID').DataType:=ftInteger;
   ParamByName('ProductID').Value := trim(unit2.product_id);
  end;
-  ShowMessage(unit2.manager_id+' '+unit2.product_id);
+  ShowMessage('manager_id = '+unit2.manager_id+' product_id = '+unit2.product_id);
   result := ADOQuery2.ExecSQL;
-  ShowMessage(IntToStr(result));
+ // ShowMessage(IntToStr(result));
   if (result = 1) then begin
    Self.close;
    with unit1.F2.ADOQuery1 do

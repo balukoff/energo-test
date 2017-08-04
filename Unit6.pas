@@ -23,22 +23,34 @@ var
 
 
 implementation
-  uses Unit1, unit3;
+  uses Unit1, unit3, unit2;
 {$R *.dfm}
 
 procedure TForm6.btn1Click(Sender: TObject);
 var result: Integer;
+var proc: string;
 begin
+
 if (trim(edt1.Text) = '') then begin
   ShowMessage('Не все данные введены');
 end;
  ADOQuery1.ConnectionString := unit1.conn_str;
- ADOQuery1.SQL.Add('exec addManager @Name = :Name');
+
+ if (unit3.operation = 'add') then
+  proc := 'exec addManager @Name = :Name'
+  else
+  proc := 'exec editManager @Name = :Name, @ManagerID = :ManagerID';
+ ADOQuery1.SQL.Add(proc);
  with ADOQuery1.Parameters do begin
   Clear;
   addParameter.name:='Name';
   ParamByName('Name').DataType:=ftString;
   ParamByName('Name').Value := trim(edt1.Text);
+  if (unit3.operation = 'edit') then begin
+   addParameter.name:='ManagerID';
+   ParamByName('ManagerID').DataType:=ftInteger;
+   ParamByName('ManagerID').Value := unit2.manager_id;
+  end;
  end;
   result := ADOQuery1.ExecSQL;
   if (result = 1) then begin
@@ -48,8 +60,7 @@ end;
     Active := true;
    end;
   end else
-  ShowMessage('Ошибка при добавлении сотрудника');
-
+  ShowMessage('Ошибка при обновлении таблицы');
 end;
 
 end.

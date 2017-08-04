@@ -20,6 +20,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure btn3Click(Sender: TObject);
     procedure btn1Click(Sender: TObject);
+    procedure btn2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -30,7 +31,8 @@ var
   Form2: TForm2;
   F5: TForm5;
   Product_id, manager_id: string;
-
+  operation: string;
+  
 implementation
   uses Unit1;
   
@@ -76,6 +78,17 @@ end;
 procedure TForm2.btn1Click(Sender: TObject);
 begin
  F5 := TForm5.Create(Application);
+ operation := 'add';
+ F5.Show();
+end;
+
+procedure TForm2.btn2Click(Sender: TObject);
+begin
+ operation := 'edit';
+ F5 := TForm5.Create(Application);
+ F5.edt1.Text := ADOQuery1.Fields.Fields[2].AsString;
+ F5.edt2.Text := ADOQuery1.Fields.Fields[1].AsString;
+ F5.lbl3.Caption := 'Цена товара: '+ADOQuery1.Fields.Fields[3].AsString;
  F5.Show();
 end;
 

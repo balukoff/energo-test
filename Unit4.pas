@@ -16,11 +16,15 @@ type
     btn2: TBitBtn;
     btn3: TBitBtn;
     btn4: TBitBtn;
+    edt1: TEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure btn4Click(Sender: TObject);
     procedure btn2Click(Sender: TObject);
     procedure btn1Click(Sender: TObject);
+    procedure btn3Click(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure edt1KeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -32,7 +36,8 @@ var
   Form4: TForm4;
   Name: String;
   id: Integer;
-
+  operation: string;
+  product_id : integer;
 implementation
   uses Unit1, unit5, unit2;
 {$R *.dfm}
@@ -84,7 +89,34 @@ end;
 procedure TForm4.btn1Click(Sender: TObject);
 begin
  F7 := TForm7.Create(Application);
+ operation := 'add';
  F7.Show();
+end;
+
+procedure TForm4.btn3Click(Sender: TObject);
+begin
+ F7 := TForm7.Create(Application);
+ operation := 'edit';
+ F7.edt1.Text := ADOQuery1.Fields.Fields[1].AsString;
+ F7.edt2.Text := ADOQuery1.Fields.Fields[2].AsString;
+ product_id := ADOQuery1.Fields.Fields[0].AsInteger;
+ F7.Show();
+
+end;
+
+procedure TForm4.FormShow(Sender: TObject);
+begin
+ edt1.SetFocus;
+end;
+
+procedure TForm4.edt1KeyPress(Sender: TObject; var Key: Char);
+begin
+ with ADOQuery1 do begin
+  Active := false;
+  Sql.Clear;
+  SQL.Add('select * from Products where Name like ''%'+trim(edt1.Text)+'%''');
+  Active := true;
+ end;
 end;
 
 end.

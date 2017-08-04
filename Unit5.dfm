@@ -3,7 +3,7 @@ object Form5: TForm5
   Top = 234
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
-  Caption = #1044#1086#1073#1072#1074#1083#1077#1085#1080#1077' '#1079#1072#1082#1072#1079#1072
+  Caption = #1056#1072#1073#1086#1090#1072' '#1089' '#1079#1072#1082#1072#1079#1086#1084
   ClientHeight = 122
   ClientWidth = 441
   Color = clBtnFace
